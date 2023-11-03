@@ -1,0 +1,1 @@
+<a href="insert.php">adicionar</a>
