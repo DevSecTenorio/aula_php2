@@ -24,7 +24,7 @@
         <td><?php echo $linha["nome"]?></td>
         <td><?php echo $linha["email"]?></td>
         <td>
-            <a href="delete.php?id=<?php echo $linha["id"]?>"><button type="button" class="btn btn-danger">Excluir</button></a>
+            <a href="delete.php?id=<?php echo $linha["id"]?>" onclick="return confirm('Deseja realmente excluir?')"><button type="button" class="btn btn-danger">Excluir</button></a>
             <button type="button" class="btn btn-dark">Editar</button>
         </td>
     </tr>
