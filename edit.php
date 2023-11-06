@@ -6,7 +6,8 @@
         $id=$_POST['id'];
         $nome=$_POST['nome'];
         $email=$_POST['email'];
-        $sql="update pessoa set nome='$nome',email='$email' where id=".$id;
+        $idade=$_POST['idade'];
+        $sql="update pessoa set nome='$nome',email='$email',idade='$idade' where id=".$id;
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         header("location: index.php");
@@ -37,6 +38,10 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="mb-3">
                 <label class="form-label">Qual é o seu e-mail?</label>
                 <input type='email' name='email' placeholder='Qual é o seu e-mail?' class="form-control" value="<?php echo $linha["email"];?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Qual a sua idade?</label>
+                <input type='text' name='idade' placeholder='Qual a sua idade?' class="form-control" value="<?php echo $linha["idade"];?>">
             </div>
             <input type='submit' class="btn btn-primary" value='salvar'>
         </form>
