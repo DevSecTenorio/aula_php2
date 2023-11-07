@@ -6,7 +6,13 @@
         $nome=$_POST['nome'];
         $email=$_POST['email'];
         $idade=$_POST['idade'];
-        $sql="insert into pessoa (nome,email,idade)  values ('$nome','$email','$idade')";
+        $nascimento=$_POST['nascimento'];
+        $nascimento = explode("/",$nascimento);
+        $dia = ($nascimento[0]);
+        $mes = ($nascimento[1]);
+        $ano = ($nascimento[2]);
+        $nascimento = $ano.'-'.$mes.'-'.$dia;
+        $sql="insert into pessoa (nome,email,idade,nascimento)  values ('$nome','$email','$idade','$nascimento')";
         //echo 'salvar pessoa, o nome é '.$nome .' seu email é ' .$email;
         //echo $sql;
         $stmt = $conexao->prepare($sql);
@@ -38,6 +44,10 @@
             <div class="mb-3">
                 <label class="form-label">Qual a sua idade?</label>
                 <input type='text' class="form-control" name='idade' placeholder='Qual a sua idade?'>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Qual a sua data de nascimento?</label>
+                <input type='text' class="form-control" name='nascimento' placeholder='Qual a sua data de nascimento?'>
             </div>
             <input type='submit' value='salvar'>
         </form>

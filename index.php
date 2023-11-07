@@ -12,12 +12,13 @@
         <th scope="col">Nome</th>
         <th scope="col">Email</th>
         <th scope="col">Idade</th>
+        <th scope="col">Data de Nascimento</th>
         <th scope="col">Ações</th>
     </tr>
     </thead>
     <tbody>
     <?php
-        $consulta = $conexao->query("select * from pessoa");
+        $consulta = $conexao->query("select id,nome,idade, email,DATE_FORMAT(nascimento,'%d/%m/%Y') AS nascimento  from pessoa");
         while ($linha = $consulta->fetch(PDO::FETCH_ASSOC)){
     ?>
     <tr>
@@ -25,6 +26,7 @@
         <td><?php echo $linha["nome"]?></td>
         <td><?php echo $linha["email"]?></td>
         <td><?php echo $linha["idade"]?></td>
+        <td><?php echo $linha["nascimento"]?></td>
         <td>
             <a href="delete.php?id=<?php echo $linha["id"]?>" onclick="return confirm('Deseja realmente excluir?')"><button type="button" class="btn btn-danger">Excluir</button></a>
             <a href="edit.php?id=<?php echo $linha["id"]?>"> <button type="button" class="btn btn-dark">Editar</button></a>

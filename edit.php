@@ -7,14 +7,20 @@
         $nome=$_POST['nome'];
         $email=$_POST['email'];
         $idade=$_POST['idade'];
-        $sql="update pessoa set nome='$nome',email='$email',idade='$idade' where id=".$id;
+        $nascimento=$_POST['nascimento'];
+        $nascimento = explode("/",$nascimento);
+        $dia = ($nascimento[0]);
+        $mes = ($nascimento[1]);
+        $ano = ($nascimento[2]);
+        $nascimento = $ano.'-'.$mes.'-'.$dia;
+        $sql="update pessoa set nome='$nome',email='$email',idade='$idade',nascimento='$nascimento' where id=".$id;
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         header("location: index.php");
     }
     $id   = $_GET["id"];
 
-$consulta = $conexao->query("SELECT * FROM pessoa where id=".$id);
+$consulta = $conexao->query("select id,nome,email, idade, DATE_FORMAT(nascimento,'%d/%m/%Y') AS nascimento  from pessoa where id=".$id);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
 <!doctype html>
@@ -42,6 +48,10 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="mb-3">
                 <label class="form-label">Qual a sua idade?</label>
                 <input type='text' name='idade' placeholder='Qual a sua idade?' class="form-control" value="<?php echo $linha["idade"];?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Qual a sua Data de Nascimento?</label>
+                <input type='text' name='nascimento' placeholder='Qual a sua data de nascimento?' class="form-control" value="<?php echo $linha["nascimento"];?>">
             </div>
             <input type='submit' class="btn btn-primary" value='salvar'>
         </form>
