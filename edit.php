@@ -8,19 +8,20 @@
         $email=$_POST['email'];
         $idade=$_POST['idade'];
         $nascimento=$_POST['nascimento'];
+        $sexo=$_POST['sexo'];
         $nascimento = explode("/",$nascimento);
         $dia = ($nascimento[0]);
         $mes = ($nascimento[1]);
         $ano = ($nascimento[2]);
         $nascimento = $ano.'-'.$mes.'-'.$dia;
-        $sql="update pessoa set nome='$nome',email='$email',idade='$idade',nascimento='$nascimento' where id=".$id;
+        $sql="update pessoa set nome='$nome',email='$email',idade='$idade',nascimento='$nascimento',sexo='$sexo' where id=".$id;
         $stmt = $conexao->prepare($sql);
         $stmt->execute();
         header("location: index.php");
     }
     $id   = $_GET["id"];
 
-$consulta = $conexao->query("select id,nome,email, idade, DATE_FORMAT(nascimento,'%d/%m/%Y') AS nascimento  from pessoa where id=".$id);
+$consulta = $conexao->query("select id,nome,email, idade, DATE_FORMAT(nascimento,'%d/%m/%Y') AS nascimento, sexo  from pessoa where id=".$id);
 $linha = $consulta->fetch(PDO::FETCH_ASSOC);
 ?>
 <!doctype html>
@@ -52,6 +53,14 @@ $linha = $consulta->fetch(PDO::FETCH_ASSOC);
             <div class="mb-3">
                 <label class="form-label">Qual a sua Data de Nascimento?</label>
                 <input type='text' name='nascimento' placeholder='Qual a sua data de nascimento?' class="form-control" value="<?php echo $linha["nascimento"];?>">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Selecione o seu sexo!</label>
+                <select name="sexo" required>
+                    <option value=""></option>
+                    <option value="m" <?php if($linha["sexo"]=="m") echo 'selected';?>>Masculino</option>
+                    <option value="f" <?php if($linha["sexo"]=="f") echo 'selected';?>>Feminino</option>
+                </select>
             </div>
             <input type='submit' class="btn btn-primary" value='salvar'>
         </form>

@@ -7,12 +7,13 @@
         $email=$_POST['email'];
         $idade=$_POST['idade'];
         $nascimento=$_POST['nascimento'];
+        $sexo=$_POST['sexo'];
         $nascimento = explode("/",$nascimento);
         $dia = ($nascimento[0]);
         $mes = ($nascimento[1]);
         $ano = ($nascimento[2]);
         $nascimento = $ano.'-'.$mes.'-'.$dia;
-        $sql="insert into pessoa (nome,email,idade,nascimento)  values ('$nome','$email','$idade','$nascimento')";
+        $sql="insert into pessoa (nome,email,idade,nascimento, sexo)  values ('$nome','$email','$idade','$nascimento','$sexo')";
         //echo 'salvar pessoa, o nome é '.$nome .' seu email é ' .$email;
         //echo $sql;
         $stmt = $conexao->prepare($sql);
@@ -32,22 +33,30 @@
 <body>
     <div class="container">
         <h1>Adicionar Pessoa</h1>
-        <form method="post">
+        <form method="post" action="insert.php">
             <div class="mb-3">
                 <label class="form-label">Qual é o seu nome?</label>
-                <input type='text' class="form-control" name='nome' placeholder='Qual é o seu nome?'>
+                <input type='text' class="form-control" name='nome' placeholder='Qual é o seu nome?' required>
             </div>    
             <div class="mb-3">
                 <label class="form-label">Qual é o seu e-mail?</label>
-                <input type='text' class="form-control" name='email' placeholder='Qual é o seu email?'>
+                <input type='text' class="form-control" name='email' placeholder='Qual é o seu email?' required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Qual a sua idade?</label>
-                <input type='text' class="form-control" name='idade' placeholder='Qual a sua idade?'>
+                <input type='text' class="form-control" name='idade' placeholder='Qual a sua idade?' required>
             </div>
             <div class="mb-3">
                 <label class="form-label">Qual a sua data de nascimento?</label>
-                <input type='text' class="form-control" name='nascimento' placeholder='Qual a sua data de nascimento?'>
+                <input type='text' class="form-control" name='nascimento' placeholder='Qual a sua data de nascimento?' required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Selecione o seu sexo!</label>
+                <select name="sexo" required>
+                    <option value=""></option>
+                    <option value="m">Masculino</option>
+                    <option value="f">Feminino</option>
+                </select>
             </div>
             <input type='submit' value='salvar'>
         </form>
